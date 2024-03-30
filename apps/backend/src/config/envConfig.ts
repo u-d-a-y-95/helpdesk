@@ -4,4 +4,5 @@ export default () => ({
   DB_HOST: process.env.DB_HOST || 'localhost',
   DB_USER: process.env.DB_USER || 'admin',
   DB_PASS: process.env.DB_PASS || 'admin',
+  SALT_ROUND: process.env.SALT_ROUND || 5,
 });
