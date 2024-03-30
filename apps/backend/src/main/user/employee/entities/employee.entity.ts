@@ -2,7 +2,7 @@ import { DepartmentEntity } from 'src/main/settings/department/entities/departme
 import { RoleEntity } from 'src/main/settings/role/entities/role.entity';
 import { BaseEntity } from 'src/shared/base/base.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
-import { UserEntity } from '../../entities/user.entity';
+import { MemberEntity } from '../../member/entities/member.entity';
 
 @Entity({ name: 'employee' })
 export class EmployeeEntity extends BaseEntity {
@@ -15,9 +15,9 @@ export class EmployeeEntity extends BaseEntity {
   @Column({ nullable: true })
   dob: Date;
 
-  @OneToOne(() => UserEntity)
+  @OneToOne(() => MemberEntity)
   @JoinColumn()
-  user: UserEntity;
+  user: MemberEntity;
 
   @Column()
   userId: string;
