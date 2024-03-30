@@ -1,34 +1,44 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('customer')
+@Controller('customers')
+@ApiTags('Customers')
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Post()
-  create(@Body() createCustomerDto: CreateCustomerDto) {
-    return this.customerService.create(createCustomerDto);
+  createCustomer(@Body() body: CreateCustomerDto) {
+    return this.customerService.createCustomer(body);
   }
 
   @Get()
-  findAll() {
-    return this.customerService.findAll();
+  getAllCustomers() {
+    return this.customerService.find();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.customerService.findOne(+id);
+  getCustomerById(@Param('id') id: string) {
+    return this.customerService.findById(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
-    return this.customerService.update(+id, updateCustomerDto);
+  updateCustomerById(@Param('id') id: string, @Body() body: UpdateCustomerDto) {
+    return this.customerService.updateById(id, body);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.customerService.remove(+id);
+  deleteCustomerById(@Param('id') id: string) {
+    return this.customerService.removeById(id);
   }
 }

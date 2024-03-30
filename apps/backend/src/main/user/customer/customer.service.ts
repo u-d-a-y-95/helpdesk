@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
-import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { BaseService } from 'src/shared/base/base.service';
+import { CustomerEntity } from './entities/customer.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { MemberService } from '../member/member.service';
 
 @Injectable()
-export class CustomerService {
-  create(createCustomerDto: CreateCustomerDto) {
-    return 'This action adds a new customer';
+export class CustomerService extends BaseService<CustomerEntity> {
+  constructor(
+    @InjectRepository(CustomerEntity)
+    private customerRepository: Repository<CustomerEntity>,
+    private memberService: MemberService,
+  ) {
+    super(customerRepository);
   }
 
-  findAll() {
-    return `This action returns all customer`;
-  }
+  async createCustomer(values: CreateCustomerDto) {
+    const { email, password, ...rest } = values;
+    const member = await this.memberService.create({
+      email,
+      password,
+    });
 
-  findOne(id: number) {
-    return `This action returns a #${id} customer`;
-  }
-
-  update(id: number, updateCustomerDto: UpdateCustomerDto) {
-    return `This action updates a #${id} customer`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} customer`;
+    const payload = {
+      ...rest,
+      userId: member.id,
+    };
+    return super.create(payload);
   }
 }
