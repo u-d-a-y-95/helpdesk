@@ -4,10 +4,10 @@ import { MemberEntity } from '../../member/entities/member.entity';
 
 @Entity('customer')
 export class CustomerEntity extends BaseEntity {
-  @Column({ name: 'first_name' })
+  @Column()
   firstName: string;
 
-  @Column({ name: 'last_name', nullable: true })
+  @Column({ nullable: true })
   lastName: string;
 
   @Column({ nullable: true })
