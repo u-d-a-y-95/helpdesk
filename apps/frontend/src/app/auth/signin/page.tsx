@@ -16,9 +16,7 @@ export default function SignPage() {
             <Input placeholder="Enter your email" size="large" />
           </div>
           <div>
-            <label className=" block text-sm text-gray-400 mb-1">
-              Password
-            </label>
+            <label className=" block text-sm text mb-1">Password</label>
             <Input placeholder="Enter your password" size="large" />
           </div>
 
