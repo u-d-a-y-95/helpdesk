@@ -28,4 +28,14 @@ export class AuthService {
       token,
     };
   }
+  async isValid(token: string) {
+    try {
+      const res = await this.jwtService.verifyAsync(token);
+
+      if (!res) return false;
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }
