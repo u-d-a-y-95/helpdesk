@@ -13,7 +13,7 @@ type RootLayoutProps = {
 };
 
 export default function RootLayout({ children, modal }: RootLayoutProps) {
-  console.log(modal);
+  // console.log(modal);
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -37,7 +37,7 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
             }}
           >
             <div>{children}</div>
-            {modal}
+            {/* {modal} */}
           </ConfigProvider>
         </AntdRegistry>
         <div id="modal-root" />

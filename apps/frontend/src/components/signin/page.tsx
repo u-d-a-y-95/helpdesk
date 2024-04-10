@@ -1,5 +1,6 @@
 "use client";
 import { Button, Input } from "antd";
+import { signIn } from "next-auth/react";
 import { Controller, useForm } from "react-hook-form";
 
 const defaultValues = {
@@ -13,7 +14,10 @@ export const SignPage = () => {
   });
 
   const submitHandler = (values: typeof defaultValues) => {
-    console.log(values);
+    signIn("credentials", {
+      redirect: false,
+      ...values,
+    });
   };
 
   return (
