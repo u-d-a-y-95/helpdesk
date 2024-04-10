@@ -21,6 +21,7 @@ const handler = NextAuth({
           email: credentials.email,
           password: credentials.password,
         });
+        console.log(res);
         if (res.statusCode === 401) return null;
         return res;
       },
