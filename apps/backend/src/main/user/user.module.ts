@@ -7,6 +7,6 @@ import { CustomerModule } from './customer/customer.module';
   imports: [MemberModule, EmployeeModule, CustomerModule],
   controllers: [],
   providers: [],
-  exports: [],
+  exports: [MemberModule],
 })
 export class UserModule {}

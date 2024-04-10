@@ -9,15 +9,19 @@ import { BcryptService } from 'src/shared/bcrypt/bcrypt.service';
 export class MemberService extends BaseService<MemberEntity> {
   constructor(
     @InjectRepository(MemberEntity)
-    private userRepository: Repository<MemberEntity>,
+    private memberRepository: Repository<MemberEntity>,
     private bcryptService: BcryptService,
   ) {
-    super(userRepository);
+    super(memberRepository);
   }
 
   async create(values: DeepPartial<MemberEntity>) {
     const { password } = values;
     const hashedPassword = await this.bcryptService.getHashed(password);
     return super.create({ ...values, password: hashedPassword });
+  }
+
+  async findByEmail(email: string) {
+    return this.memberRepository.findOne({ where: { email } });
   }
 }

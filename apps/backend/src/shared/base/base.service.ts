@@ -26,6 +26,12 @@ export class BaseService<T extends BaseEntity> {
     return this.repository.find(options);
   }
 
+  async findOne(options: FindOneOptions<T> = {}) {
+    const record = await this.repository.findOne(options);
+    if (!record) throw new NotFoundException();
+    return record;
+  }
+
   async findById(id: string, options: Omit<FindOneOptions<T>, 'where'> = {}) {
     const record = await this.repository.findOne({
       where: { id },

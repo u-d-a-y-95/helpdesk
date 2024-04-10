@@ -5,4 +5,5 @@ export default () => ({
   DB_USER: process.env.DB_USER || 'admin',
   DB_PASS: process.env.DB_PASS || 'admin',
   SALT_ROUND: process.env.SALT_ROUND || 5,
+  JWT_SECRET: process.env.JWT_SECRET || 'secret',
 });

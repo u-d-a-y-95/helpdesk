@@ -8,12 +8,13 @@ import {
   Put,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateCategoryDto } from './dtos/createCategory.dto';
 import { UpdateCategoryDto } from './dtos/updateCategory.dto';
 
 @Controller('categories')
 @ApiTags('Categories')
+@ApiBearerAuth()
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
 
