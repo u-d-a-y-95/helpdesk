@@ -19,7 +19,7 @@ export class ResponseInterceptor implements NestInterceptor {
         return {
           message: response.statusMessage || '',
           statusCode: response.statusCode,
-          data: data || null,
+          data: data,
         };
       }),
     );

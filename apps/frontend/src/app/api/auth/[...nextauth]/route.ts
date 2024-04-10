@@ -11,17 +11,17 @@ const handler = NextAuth({
     Credentials({
       name: "credential",
       credentials: {},
-      authorize: async function (
-        credentials: Record<string | number | symbol, string> | undefined,
-        req: Pick<RequestInternal, "body" | "query" | "headers" | "method">
-      ): Promise<User | null> {
+      authorize: async function (credentials: {
+        email: string;
+        password: string;
+      }): Promise<User | null> {
         if (!credentials) return null;
 
         const res = await http.post("/auth/signin", {
           email: credentials.email,
           password: credentials.password,
         });
-        console.log(res);
+
         if (res.statusCode === 401) return null;
         return res;
       },
@@ -29,9 +29,9 @@ const handler = NextAuth({
   ],
   callbacks: {
     jwt({ token, user }) {
-      console.log(token, user);
       return {
-        signedToken: user.token,
+        ...user.data,
+        signedToken: user.data.token,
       };
     },
   },

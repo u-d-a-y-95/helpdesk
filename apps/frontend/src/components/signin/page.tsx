@@ -1,6 +1,7 @@
 "use client";
 import { Button, Input } from "antd";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 
 const defaultValues = {
@@ -9,15 +10,18 @@ const defaultValues = {
 };
 
 export const SignPage = () => {
+  const router = useRouter();
   const { control, handleSubmit } = useForm({
     defaultValues,
   });
 
-  const submitHandler = (values: typeof defaultValues) => {
-    signIn("credentials", {
+  const submitHandler = async (values: typeof defaultValues) => {
+    const res = await signIn("credentials", {
       redirect: false,
       ...values,
     });
+    console.log(res);
+    if (res?.status === 200) return router.replace("/");
   };
 
   return (
