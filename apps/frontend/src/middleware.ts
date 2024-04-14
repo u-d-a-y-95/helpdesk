@@ -6,7 +6,7 @@ import { http } from "./util/http";
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("next-auth.session-token");
   if (!token) return;
-  const res = await http.post("/auth/isvalid", { token: token.value });
+  const res = await http.post("/auth/isvalid", null, { token: token.value });
   if (res.data) return NextResponse.redirect(new URL("/", request.url));
 }
 

@@ -1,3 +1,11 @@
+enum HttpMethod {
+  GET = "GET",
+  POST = "POST",
+}
+
+type HttpOption = {
+  token: string;
+};
 class Http {
   constructor(private baseUrl: string) {}
 
@@ -5,23 +13,37 @@ class Http {
     return this.baseUrl + url;
   }
 
-  get(url: string) {
-    const fullUrl = this.getFullUrl(url);
-    return fetch(fullUrl, {
-      method: "get",
-    });
-  }
-
-  async post(url: string, body: any) {
-    const fullUrl = this.getFullUrl(url);
-    const fetched = await fetch(fullUrl, {
-      headers: {
+  private async request(
+    url: string,
+    method: HttpMethod,
+    body: string | null = null,
+    option: HttpOption
+  ) {
+    const headers = Object.assign(
+      {
         "Content-Type": "application/json",
       },
-      method: "post",
-      body: JSON.stringify(body),
+      {
+        authorization: `Bearer ${option.token}`,
+      }
+    );
+    const fetched = await fetch(url, {
+      method,
+      headers,
+      body,
     });
     return fetched.json();
+  }
+
+  async get(url: string, option: HttpOption) {
+    const fullUrl = this.getFullUrl(url);
+    return this.request(fullUrl, HttpMethod.GET, null, option);
+  }
+
+  async post(url: string, body: any, option: HttpOption) {
+    const fullUrl = this.getFullUrl(url);
+    const formatedBody = JSON.stringify(body);
+    return this.request(fullUrl, HttpMethod.POST, formatedBody, option);
   }
 }
 

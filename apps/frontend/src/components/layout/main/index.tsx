@@ -11,7 +11,7 @@ export const MainLayout = ({ children }: LayoutProps) => {
       <div className=" flex-1 flex flex-col">
         <div className="h-[50px] border-0 border-b border-gray-200 border-solid bg-white"></div>
         <div className="w-full p-5 flex-1">
-          <div className="w-full h-full bg-white">{children}</div>
+          <div className="w-full h-full">{children}</div>
         </div>
       </div>
     </div>

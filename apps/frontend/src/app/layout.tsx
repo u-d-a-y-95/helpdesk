@@ -26,14 +26,6 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
                 colorTextBase: "#1e293b",
                 borderRadius: 0,
               },
-              components: {
-                Input: {},
-                Button: {
-                  controlHeight: 45,
-                  fontSize: 16,
-                  fontWeight: 500,
-                },
-              },
             }}
           >
             <div>{children}</div>
