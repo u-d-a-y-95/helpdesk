@@ -1,14 +1,12 @@
-import Menu from "antd/es/menu";
-
-import MenuItem from "antd/es/menu/MenuItem";
-import SubMenu from "antd/es/menu/SubMenu";
+import { Menu } from "antd";
 import Link from "next/link";
 import { MenuType } from "./index.type";
+import { MenuItemType } from "antd/es/menu/hooks/useItems";
 
 const menus = [
   {
     label: "Dashboard",
-    url: "",
+    url: "/",
     key: "dashboard",
   },
   {
@@ -19,30 +17,25 @@ const menus = [
       {
         label: "status",
         key: "",
-        url: "settings/status",
+        url: "/settings/status",
       },
     ],
   },
 ];
 
-const renderMenu = (menu: MenuType) => {
-  if (!menu.children)
-    return (
-      <MenuItem>
-        <Link href={menu.url}>{menu.label}</Link>
-      </MenuItem>
-    );
-  return <SubMenu title={menu.label}>{generateMenu(menu.children)}</SubMenu>;
-};
-
-const generateMenu = (menus: MenuType[]) => {
-  return (
-    <>
-      {menus.map((menu) => (
-        <>{renderMenu(menu)}</>
-      ))}
-    </>
-  );
+const generateMenu = (menus: MenuType[]): MenuItemType[] => {
+  return menus.map((menu) => {
+    if (!menu.children) {
+      return {
+        ...menu,
+        label: <Link href={menu.url}>{menu.label}</Link>,
+      };
+    }
+    return {
+      ...menu,
+      children: generateMenu(menu.children),
+    };
+  });
 };
 
 export const LeftBar = () => {
@@ -51,7 +44,7 @@ export const LeftBar = () => {
       <div className="text-center text-primary font-bold text-2xl my-2 tracking-wider">
         iHelpDesk
       </div>
-      <Menu mode="inline">{generateMenu(menus)}</Menu>
+      <Menu mode="inline" items={generateMenu(menus)}></Menu>
     </div>
   );
 };
