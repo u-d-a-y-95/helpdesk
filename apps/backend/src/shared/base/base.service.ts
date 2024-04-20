@@ -8,6 +8,13 @@ import {
 import { BaseEntity } from './base.entity';
 import { NotFoundException } from '@nestjs/common';
 
+const defaultFindOption = {
+  order: {
+    createdAt: -1,
+  },
+  take: 10,
+};
+
 export class BaseService<T extends BaseEntity> {
   constructor(private repository: Repository<T>) {}
 
@@ -23,7 +30,8 @@ export class BaseService<T extends BaseEntity> {
   }
 
   find(options: FindManyOptions<T> = {}) {
-    return this.repository.find(options);
+    const findOption = Object.assign(defaultFindOption, options);
+    return this.repository.find(findOption);
   }
 
   async findOne(options: FindOneOptions<T> = {}) {

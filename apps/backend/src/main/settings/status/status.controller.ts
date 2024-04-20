@@ -10,14 +10,13 @@ import {
 import { StatusService } from './status.service';
 import { CreateStatusDto } from './dto/create-status.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('status')
 @ApiTags('Status')
+@ApiBearerAuth()
 export class StatusController {
-  constructor(private readonly statusService: StatusService) {
-    console.log('controller');
-  }
+  constructor(private readonly statusService: StatusService) {}
 
   @Post()
   create(@Body() body: CreateStatusDto) {
