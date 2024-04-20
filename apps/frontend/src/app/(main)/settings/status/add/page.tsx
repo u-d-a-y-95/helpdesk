@@ -1,6 +1,5 @@
-import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Button, Input } from "antd";
+import { AddStatus } from "@/components/pages/main/settings/status";
 
 export default function AddStatusPage() {
-  return <AddStatusPage />;
+  return <AddStatus />;
 }
