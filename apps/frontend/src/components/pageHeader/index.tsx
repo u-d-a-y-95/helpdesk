@@ -1,10 +1,12 @@
 import { Button, Input } from "antd";
+import Link from "next/link";
 
 type PageHeaderProps = {
   title: string;
+  createLink: string;
 };
 
-export const PageHeader = ({ title }: PageHeaderProps) => {
+export const PageHeader = ({ title, createLink }: PageHeaderProps) => {
   return (
     <>
       <div className="">
@@ -16,7 +18,8 @@ export const PageHeader = ({ title }: PageHeaderProps) => {
           <Button type="text">Reset</Button>
         </div>
         <div>
-          <Button type="primary">Create new</Button>
+          <Link href={createLink}>Create new</Link>
+          <Button type="primary"></Button>
         </div>
       </div>
     </>
