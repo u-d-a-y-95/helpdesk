@@ -5,7 +5,9 @@ export const Status = () => {
   return (
     <div>
       <PageHeader title="Status" />
-      <div className="mt-5">{/* <StatusList /> */}</div>
+      <div className="mt-5">
+        <StatusList />
+      </div>
     </div>
   );
 };

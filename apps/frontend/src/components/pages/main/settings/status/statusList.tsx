@@ -1,21 +1,17 @@
+"use client";
+import { useGetStatus } from "@/hooks/service/status.hook";
 import { Table } from "antd";
-import { cookies } from "next/headers";
 
-export const StatusList = async () => {
-  const res = await (
-    await fetch("http://localhost:3000/api/settings/status", {
-      headers: { Cookie: cookies().toString() },
-    })
-  ).json();
-
+export const StatusList = () => {
+  const { isLoading, isFetching, data: res } = useGetStatus();
   return (
     <Table
+      loading={isLoading || isFetching}
       size="small"
       columns={[
         {
           title: "#",
-          key: "#",
-          dataIndex: "count",
+          render: (_text, _record, index) => index + 1,
         },
         {
           title: "Name",
@@ -32,7 +28,8 @@ export const StatusList = async () => {
           key: "#",
         },
       ]}
-      dataSource={res.data}
+      rowKey={(data) => data.id}
+      dataSource={res?.data}
     />
   );
 };
