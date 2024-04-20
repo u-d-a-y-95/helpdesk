@@ -1,5 +1,5 @@
-import { Form } from "@/components/form";
+import { CustomForm } from "@/components/form";
 
 export const AddStatus = () => {
-  return <Form title="Status" />;
+  return <CustomForm title="Status" />;
 };

@@ -1,10 +1,9 @@
 import { Input } from "antd";
 import { formProps } from "./index.type";
-import { FormHeader } from "./formHeader";
 import { FormFooter } from "./formFooter";
 import { PageHeader } from "../pageHeader";
 
-export const Form = ({ title }: formProps) => {
+export const CustomForm = ({ title }: formProps) => {
   return (
     <div>
       <PageHeader title={title} link="." back />

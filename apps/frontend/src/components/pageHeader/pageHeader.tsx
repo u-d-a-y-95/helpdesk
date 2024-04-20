@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Button, Input } from "antd";
+import { Button } from "antd";
 import Link from "next/link";
 import { PageHeaderProps } from "./index.type";
 
