@@ -1,17 +1,16 @@
-"use client";
-import { useGetStatus } from "@/hooks/service/status.hook";
+"use server";
+import { serverHttp } from "@/util/server";
 import { Table } from "antd";
 
-export const StatusList = () => {
-  const { isLoading, isFetching, data: res } = useGetStatus();
+export const StatusList = async () => {
+  const res = await serverHttp("/settings/status", "get");
+  console.log(res);
   return (
     <Table
-      loading={isLoading || isFetching}
       size="small"
       columns={[
         {
           title: "#",
-          render: (_text, _record, index) => index + 1,
         },
         {
           title: "Name",
@@ -28,8 +27,6 @@ export const StatusList = () => {
           key: "#",
         },
       ]}
-      rowKey={(data) => data.id}
-      dataSource={res?.data}
-    />
+    ></Table>
   );
 };

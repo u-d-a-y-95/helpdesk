@@ -1,5 +1,4 @@
 import { MainLayout } from "@/components/layout/main";
-import { QueryProvider } from "@/state/react-query";
 import { ReactNode } from "react";
 
 type LayoutProps = {
@@ -9,9 +8,7 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div>
-      <QueryProvider>
-        <MainLayout>{children}</MainLayout>
-      </QueryProvider>
+      <MainLayout>{children}</MainLayout>
     </div>
   );
 }
