@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[class^="ant-"] {
+    box-shadow: none; /* Remove the box shadow from all Ant Design components */
+  }
