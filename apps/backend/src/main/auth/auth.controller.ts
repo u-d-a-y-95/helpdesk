@@ -12,6 +12,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('/signin')
+  @HttpCode(HttpStatus.OK)
   signin(@Body() body: SigninDto) {
     return this.authService.signin(body);
   }

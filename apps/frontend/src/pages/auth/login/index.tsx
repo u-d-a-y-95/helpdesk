@@ -3,27 +3,41 @@ import { Button } from "../../../components/core/button";
 import { FormInput } from "../../../components/core/form-input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { login } from "../../../services/auth.service";
+import { useDispatcher, useSelecteor } from "../../../state";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
-  const {
-    control,
+  const state = useSelecteor((state) => state);
+  const dispatcher = useDispatcher((state) => state);
+  const navigate = useNavigate();
 
-    handleSubmit,
-  } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
       email: "",
       password: "",
     },
     resolver: zodResolver(
       z.object({
-        email: z.string().email({ message: "Please enter a valid email" }),
+        email: z
+          .string()
+          .min(1, "Email can't be empty")
+          .email({ message: "Please enter a valid email" }),
+        password: z.string().min(1, "Password can not be empty"),
       })
     ),
   });
 
-  const submitHandler = (values) => {
-    console.log(values);
+  const submitHandler = async (values) => {
+    const res = await login(values);
+    if (res.data.statusCode === 200) {
+      dispatcher.auth.setLogin({
+        token: res.data.data.token,
+      });
+      navigate("/");
+    }
   };
+
   return (
     <section className="bg-transparent">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
@@ -51,7 +65,23 @@ export const LoginPage = () => {
                 />
               )}
             />
-            <FormInput name="password" type="password" label="Password" />
+            <Controller
+              name="password"
+              control={control}
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <FormInput
+                  name="password"
+                  type="password"
+                  label="Password"
+                  onChange={onChange}
+                  value={value}
+                  error={error}
+                />
+              )}
+            />
 
             <div className="flex justify-end">
               <Button label="Login" type="submit" />

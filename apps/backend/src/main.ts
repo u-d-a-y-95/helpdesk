@@ -21,6 +21,7 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
+  app.enableCors();
   // app.use(helmet());
   await app.listen(4000);
 }
