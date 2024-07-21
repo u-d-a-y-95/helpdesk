@@ -20,7 +20,7 @@ export class AuthService {
       password,
       hashedPassword,
     );
-    if (!isValid) throw new UnauthorizedException();
+    if (!isValid) throw new UnauthorizedException('User is unauthorized');
 
     const token = await this.jwtService.signAsync(res);
     return {

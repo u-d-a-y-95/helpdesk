@@ -1,7 +1,15 @@
-import React from "react";
+import axios from "axios";
+import { ReactNode } from "react";
 
-const App: React.FC = () => {
-  return <div></div>;
+export const App = ({ children }: { children: ReactNode }) => {
+  axios.interceptors.response.use(
+    () => {},
+    (error) => {
+      if (error.config.toast) {
+        console.log(error.response.data.message);
+      }
+      return error;
+    }
+  );
+  return <>{children}</>;
 };
-
-export default App;

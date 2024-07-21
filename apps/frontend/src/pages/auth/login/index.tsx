@@ -30,7 +30,7 @@ export const LoginPage = () => {
 
   const submitHandler = async (values) => {
     const res = await login(values);
-    if (res.data.statusCode === 200) {
+    if (res?.data.statusCode === 200) {
       dispatcher.auth.setLogin({
         token: res.data.data.token,
       });
