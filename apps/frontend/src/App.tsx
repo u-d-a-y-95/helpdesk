@@ -11,5 +11,5 @@ export const App = ({ children }: { children: ReactNode }) => {
       return error;
     }
   );
-  return <>{children}</>;
+  return <div className="text-sm">{children}</div>;
 };
